@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini AI Advanced Prompt Master & Visual Strategist</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+    <!-- Header -->
+    <header class="bg-slate-900 border-b border-slate-800 py-6 px-8 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                    <i class="fa-solid fa-brain mr-2"></i> Gemini AI Visual Strategist
+                </h1>
+                <p class="text-slate-400 text-sm mt-1">Generator Prompt Profesional untuk 20 Format Visual Presentasi & Buku</p>
+            </div>
+            <div class="bg-slate-800 px-4 py-2 rounded-lg text-xs text-purple-300 border border-slate-700">
+                <i class="fa-solid fa-rocket mr-1"></i> Mode: Optimasi 20 Prompt Visual Utuh
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto p-6 md:p-8">
+        
+        <!-- Input Section -->
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl mb-8 ring-1 ring-purple-900/50">
+            <label for="topicInput" class="block text-base font-semibold text-slate-200 mb-3">
+                <i class="fa-solid fa-bullseye text-purple-400 mr-2"></i> Masukkan Judul Materi atau Konsep Utama Pembelajaran:
+            </label>
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="text" id="topicInput" 
+                    placeholder="Contoh: Sistem Tata Surya, Ekosistem Hutan, Revolusi Industri..." 
+                    class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-4 text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition text-lg">
+                <button onclick="generateAllOptimizedPrompts()" 
+                    class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-lg transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate 20 Prompt Visual
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingIndicator" class="hidden text-center py-16">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent mb-5"></div>
+            <p class="text-slate-300 animate-pulse text-lg">Gemini AI sedang menyusun ke-20 strategi prompt spesifik...</p>
+        </div>
+
+        <!-- Output Grid Section -->
+        <section id="outputSection" class="hidden">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+                <h2 class="text-2xl font-bold text-slate-200">
+                    <i class="fa-solid fa-list-check text-blue-400 mr-2"></i> Hasil 20 Prompt untuk: <span id="displayTopic" class="text-purple-400 italic"></span>
+                </h2>
+                <div class="flex gap-3 self-start md:self-center">
+                    <button onclick="copyAllPrompts()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm px-5 py-2.5 rounded-xl border border-slate-700 transition flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-copy"></i> Salin Semua 20 Prompt
+                    </button>
+                    <button onclick="downloadAllPromptsTxt()" class="bg-blue-600 hover:bg-blue-500 text-white text-sm px-5 py-2.5 rounded-xl transition flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-file-download"></i> Unduh File .txt
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid 20 Prompt Cards -->
+            <div id="gridPromptCards" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Disuntikkan via JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-10 text-slate-600 text-sm border-t border-slate-900 mt-16 bg-slate-900">
+        Gemini AI Visual Strategist Platform &copy; 2026 - All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const secretCodeStrategies = [
+            { code: "/infographic", title: "Infographic", desc: "Ringkasan informasi kunci dengan data, statistik, dan ikon.", icon: "fa-chart-pie" },
+            { code: "/anatomy", title: "Anatomy", desc: "Detail bagian internal dan fungsi biologis/struktural.", icon: "fa-dna" },
+            { code: "/mindmap", title: "Mindmap", desc: "Peta konsep interkoneksi antargagasan atau materi.", icon: "fa-sitemap" },
+            { code: "/worksheet", title: "Worksheet", desc: "Lembar kerja siswa/LKPD siap cetak atau asesmen.", icon: "fa-file-pen" },
+            { code: "/timeline", title: "Timeline", desc: "Urutan linier atau kronologis peristiwa/proses.", icon: "fa-timeline" },
+            { code: "/diagram", title: "Diagram", desc: "Skema hubungan antar unsur atau tahapan sistem.", icon: "fa-diagram-project" },
+            { code: "/beforeafter", title: "Before & After", desc: "Perbandingan kondisi sebelum dan sesudah peristiwa.", icon: "fa-right-left" },
+            { code: "/handwriting", title: "Handwriting", desc: "Materi disajikan seperti catatan tulisan tangan estetik.", icon: "fa-pen-clip" },
+            { code: "/layers", title: "Layers", desc: "Ilustrasi struktur objek secara berlapis-lapis.", icon: "fa-layer-group" },
+            { code: "/quizboard", title: "Quizboard", desc: "Papan permainan kuis visual untuk asesmen materi.", icon: "fa-gamepad" },
+            { code: "/flowchart", title: "Flowchart", desc: "Diagram alir tahapan proses sistematis.", icon: "fa-project-diagram" },
+            { code: "/stickynotes", title: "Sticky Notes", desc: "Ringkasan materi dengan gaya papan catatan tempel.", icon: "fa-note-sticky" },
+            { code: "/visualize", title: "Visualize", desc: "Representasi visual konkret untuk konsep materi abstrak.", icon: "fa-eye" },
+            { code: "/explodedview", title: "Exploded View", desc: "Tampilan objek yang dibongkar untuk melihat komponen.", icon: "fa-cube" },
+            { code: "/xray", title: "X-Ray", desc: "Visualisasi struktur internal tersembunyi dari objek.", icon: "fa-bone" },
+            { code: "/lessonboard", title: "Lesson Board", desc: "Papan pembelajaran lengkap (tujuan, konsep, contoh).", icon: "fa-chalkboard-user" },
+            { code: "/blueprint", title: "Blueprint", desc: "Rancangan teknis atau cetak biru objek/sistem.", icon: "fa-compass-drafting" },
+            { code: "/clay", title: "Clay Art", desc: "Objek materi dalam gaya 3D claymation yang ceria.", icon: "fa-shapes" },
+            { code: "/cutaway", title: "Cutaway", desc: "Potongan objek untuk mengamati bagian luar dan dalam.", icon: "fa-scissors" },
+            { code: "/thenversusnow", title: "Then vs Now", desc: "Perbandingan kondisi masa lalu dengan masa kini.", icon: "fa-clock-rotate-left" }
+        ];
+
+        let generatedPromptsData = [];
+
+        function generateAllOptimizedPrompts() {
+            const topic = document.getElementById('topicInput').value.trim();
+            if (!topic) {
+                alert('Silakan masukkan judul materi atau topik utama terlebih dahulu!');
+                return;
+            }
+
+            const loading = document.getElementById('loadingIndicator');
+            const output = document.getElementById('outputSection');
+            
+            loading.classList.remove('hidden');
+            output.classList.add('hidden');
+
+            setTimeout(() => {
+                document.getElementById('displayTopic').innerText = `"${topic}"`;
+                const gridPromptCards = document.getElementById('gridPromptCards');
+                gridPromptCards.innerHTML = '';
+                generatedPromptsData = [];
+
+                secretCodeStrategies.forEach((item, index) => {
+                    // Prompt dibuat sangat spesifik membawa topik user
+                    const promptText = `Generate a professional, high-resolution visual image for the topic: "${topic}". Format required: ${item.code} (${item.title}). 
+Focus: ${item.desc}
+Style instructions: Educational style, clear typography, professional presentation layout, high detail, vibrant and balanced colors, suitable for books and slides.`;
+
+                    generatedPromptsData.push({ code: item.code, title: item.title, prompt: promptText });
+
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between shadow-xl ring-1 ring-slate-800";
+                    
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="bg-slate-800 text-purple-300 text-sm font-mono px-3 py-1.5 rounded-md border border-slate-700">
+                                    <i class="fa-solid ${item.icon} mr-1.5"></i> ${item.code}
+                                </span>
+                                <span class="text-sm text-slate-500 font-bold">#${index + 1}</span>
+                            </div>
+                            <h3 class="font-bold text-slate-100 text-lg mb-1">${item.title}</h3>
+                            <p class="text-slate-400 text-xs mb-3">${item.desc}</p>
+                            
+                            <div class="bg-slate-950 rounded-lg p-3 text-slate-200 text-xs font-mono mb-4 border border-slate-700 h-28 overflow-y-auto">
+                                ${promptText}
+                            </div>
+                        </div>
+                        <div>
+                            <button onclick="navigator.clipboard.writeText(\`${promptText}\`); alert('Prompt ${item.code} berhasil disalin!');" 
+                                class="w-full bg-purple-700 hover:bg-purple-600 text-white text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 font-semibold shadow">
+                                <i class="fa-solid fa-copy"></i> Salin Prompt Ini
+                            </button>
+                        </div>
+                    `;
+                    gridPromptCards.appendChild(card);
+                });
+
+                loading.classList.add('hidden');
+                output.classList.remove('hidden');
+            }, 500);
+        }
+
+        function copyAllPrompts() {
+            let allText = generatedPromptsData.map(p => `[${p.code}] ${p.title}\nPrompt: ${p.prompt}\n\n`).join('');
+            navigator.clipboard.writeText(allText);
+            alert('Semua 20 prompt berhasil disalin ke clipboard!');
+        }
+
+        function downloadAllPromptsTxt() {
+            const topic = document.getElementById('topicInput').value.trim() || 'Topik';
+            let allText = `DAFTAR 20 PROMPT VISUAL PROFESIONAL\nTopik: ${topic}\nGenerated by Gemini AI Visual Strategist\n==========================================\n\n` + 
+                          generatedPromptsData.map((p, i) => `${i + 1}. Format: ${p.code} (${p.title})\nPrompt:\n${p.prompt}\n\n------------------------------------------\n\n`).join('');
+            
+            const blob = new Blob([allText], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Prompt-Visual-${topic.replace(/\s+/g, '_')}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
